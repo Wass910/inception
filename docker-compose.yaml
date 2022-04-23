@@ -1,34 +1,52 @@
-
-   
 version: '3'
 
 volumes:
-    data: {}
+  wpdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/idhiba42/data/wordpress
+  mbdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/idhiba42/data/mbdata
+      
 services:
     mariadb:
         container_name: "mariadb"
         build : ./src/mariadb/
-        restart: unless-stopped
+        restart: always
+        ports:
+            - "3306:3306"
+        volumes:
+          - mbdata:/var/lib/mysql
         networks:
             - inception
         # tty: true
     wordpress:
         container_name: "wordpress"
         build: ./src/wordpress/
-        restart: unless-stopped
+        restart: always
         networks:
             - inception
+        ports:
+            - "9000:9000"
+        volumes:
+          - wpdata:/var/www/wordpress
         # tty: true
         depends_on:
-            - "mariadb"  
+            - mariadb
     nginx:
         container_name: "nginx"
         build: ./src/nginx/
-        restart: unless-stopped
+        restart: always
         ports:
             - "443:443"
         volumes:
-            - data:/var/www/html
+          - wpdata:/var/www/wordpress
         networks:
             - inception
         # tty: true

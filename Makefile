@@ -2,18 +2,17 @@ include .env
 export $(shell sed 's/=.*//' .env)
 
 up:
-	cd src && docker-compose up --build -d --remove-orphans && cd ..
+	@mkdir -p /home/idhiba42/data/mbdata
+	@mkdir -p /home/idhiba42/data/wordpress
+	@cp  src/wordpress/index.html /home/idhiba42/data/wordpress
+	docker-compose up --build -d --remove-orphans 
 
 down:
-	cd src && docker-compose down -t 2 && cd ..
-	@rm -rf ~/data/mariadb
-
-fdown:
-	cd src && docker-compose down -t 2 -v && cd ..
-	@rm -rf ~/data
+	docker-compose down
 
 clean:
 	docker-compose down --rmi all
+	@rm -rf /home/idhiba42
 	
 
 .PHONY: up down fdown clean
