@@ -31,4 +31,4 @@ RUN chmod 777 wp-cli.phar && \
 EXPOSE 9000
 
 
-CMD cp -a ${BUILDDIR}. /var/www/ && wp-cli core install --allow-root --title="Wordpress" --user="gilou|gildas|gildas@student.42.fr" --admin_name="idhiba" --admin_password="password" --admin_email="idhiba@student.42.fr" --path="/var/www/wordpress/" --url="https://localhost" && php-fpm7.3 -F -R
+CMD cp -a ${BUILDDIR}. /var/www/ && wp-cli core install --allow-root --title="Wordpress" --admin_name="idhiba" --admin_password="password" --admin_email="idhiba@student.42.fr" --path="/var/www/wordpress/" --url="https://idhiba.42.fr" && php-fpm7.3 -F -R
