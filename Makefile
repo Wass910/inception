@@ -5,6 +5,9 @@ up:
 	@mkdir -p /home/idhiba42/data/mbdata
 	@mkdir -p /home/idhiba42/data/wordpress
 	@cp  src/wordpress/index.html /home/idhiba42/data/wordpress
+	@cp  src/wordpress/style.css /home/idhiba42/data/wordpress
+	@cp  src/wordpress/backneige.jpeg /home/idhiba42/data/wordpress
+	@cp  src/wordpress/img.png /home/idhiba42/data/wordpress
 	docker-compose up --build -d --remove-orphans 
 
 down:
